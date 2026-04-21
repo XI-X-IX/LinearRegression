@@ -1,3 +1,5 @@
+![Régression linéaire](regression_plot.png)
+
 # ft_linear_regression
 
 > Un premier projet de machine learning — régression linéaire avec descente de gradient.
@@ -168,17 +170,41 @@ Le graphique de coût est en **échelle logarithmique** car la descente est trè
 
 ## Les métriques de précision (bonus)
 
-| Métrique | Formule | Interprétation |
-|----------|---------|----------------|
-| **MAE** | `moyenne(\|erreur\|)` | En moyenne, on se trompe de X CHF |
-| **RMSE** | `racine(moyenne(erreur²))` | Comme MAE, mais pénalise les grosses erreurs |
-| **R²** | `1 - SS_res / SS_tot` | 1 = parfait, 0 = le modèle ne sert à rien |
+### MAE (Mean Absolute Error) — Erreur Absolue Moyenne
+
+**Formule** : $\text{MAE} = \frac{1}{m} \sum_{i=1}^{m} |\text{erreur}_i|$
+
+**Interprétation** : En moyenne, on se trompe de X CHF en valeur absolue. Si MAE = 557.84 CHF, cela veut dire qu'en moyenne notre prédiction s'écarte de 557.84 CHF du prix réel.
+
+**Exemple** : Avec des erreurs de [+200, -300, +150], MAE = (200 + 300 + 150) / 3 = **216.67 CHF**.
 
 ---
 
-## Ce qui est vérifié à la peer-review
+### RMSE (Root Mean Square Error) — Racine de l'Erreur Quadratique Moyenne
 
-- [ ] Pas de librairie qui fait le travail à ta place (`numpy.polyfit`, `sklearn`, etc.)
-- [ ] Hypothèse correcte : `theta0 + theta1 * mileage`
-- [ ] Formules de gradient correctes (celles du sujet)
-- [ ] Mise à jour **simultanée** de theta0 et theta1 (via des temporaires)
+**Formule** : $\text{RMSE} = \sqrt{\frac{1}{m} \sum_{i=1}^{m} \text{erreur}_i^2}$
+
+**Interprétation** : Comme le MAE, mais **pénalise davantage les grandes erreurs** (car on élève au carré). Si un modèle fait une grosse erreur sur une seule voiture, le RMSE sera beaucoup plus important que le MAE.
+
+**Exemple** : Avec les mêmes erreurs [+200, -300, +150] : RMSE = $\sqrt{(200^2 + 300^2 + 150^2) / 3} = \sqrt{\frac{140000}{3}} \approx 216.33$ CHF. Mais avec [+200, -600, +150] : MAE = 316.67 mais RMSE = $\sqrt{\frac{440000}{3}} \approx 382.37$ → le RMSE a bien plus augmenté.
+
+---
+
+### R² (Coefficient de Détermination)
+
+**Formule** : $R^2 = 1 - \frac{SS_{\text{res}}}{SS_{\text{tot}}}$
+
+Où :
+- $SS_{\text{res}} = \sum_{i=1}^{m} (\text{prix}_i - \text{prédiction}_i)^2$ (résidus au carré)
+- $SS_{\text{tot}} = \sum_{i=1}^{m} (\text{prix}_i - \overline{\text{prix}})^2$ (variance totale)
+
+**Interprétation** : 
+- **R² = 1** → le modèle prédit parfaitement (impossible en pratique)
+- **R² = 0.73** (comme dans notre cas) → le modèle explique 73% de la variance des prix. Les 27% restants sont dus au kilométrage n'étant pas le seul facteur du prix
+- **R² = 0** → le modèle ne prédit pas mieux qu'une simple moyenne
+- **R² < 0** → le modèle est pire qu'une simple moyenne (très mauvais)
+
+**Exemple simple** : Si tous les prix réels étaient identiques à leurs prédictions, R² = 1. Si les prédictions valaient juste la moyenne (pas de droite), R² = 0.
+
+---
+
