@@ -78,8 +78,8 @@ Exemple de sortie :
 
 ----------------------------------------
   Metriques de precision :
-    MAE  : 557.84 euros  (erreur absolue moyenne)
-    RMSE : 667.57 euros  (erreur quadratique moyenne)
+    MAE  : 557.84 s  (erreur absolue moyenne)
+    RMSE : 667.57 CHF  (erreur quadratique moyenne)
     R2   : 0.7330         (1 = parfait, 0 = nul)
 ----------------------------------------
 ```
@@ -98,7 +98,7 @@ python3 predict.py
 Entrez le kilometrage (km) : 80000
 
   Kilometrage entre  : 80,000 km
-  Prix estime        : 6,783.68 euros
+  Prix estime        : 6,783.68 CHF
 ```
 
 > **Important** : lancez `train.py` avant `predict.py`. Sans `thetas.json`, les deux thetas valent 0 et la prédiction sera toujours 0.
@@ -160,7 +160,7 @@ Après l'entraînement, on "dénormalise" les thetas pour qu'ils fonctionnent av
 | Graphique | Ce qu'il montre |
 |-----------|-----------------|
 | Gauche | Nuage de points (données réelles) + droite de régression |
-| Droite | Evolution du coût sur les 300 premières itérations (échelle log) |
+| Droite | Evolution du coût sur les 50 premières itérations (échelle log) |
 
 Le graphique de coût est en **échelle logarithmique** car la descente est très rapide au début et le coût devient minuscule ensuite — sans log, la courbe paraît plate.
 
@@ -170,7 +170,7 @@ Le graphique de coût est en **échelle logarithmique** car la descente est trè
 
 | Métrique | Formule | Interprétation |
 |----------|---------|----------------|
-| **MAE** | `moyenne(\|erreur\|)` | En moyenne, on se trompe de X euros |
+| **MAE** | `moyenne(\|erreur\|)` | En moyenne, on se trompe de X CHF |
 | **RMSE** | `racine(moyenne(erreur²))` | Comme MAE, mais pénalise les grosses erreurs |
 | **R²** | `1 - SS_res / SS_tot` | 1 = parfait, 0 = le modèle ne sert à rien |
 
