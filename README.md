@@ -1,8 +1,39 @@
+<div align="center">
+
+# 📈 ft_linear_regression
+
+### *Mon premier projet de machine learning — régression linéaire *from scratch* (aucune librairie ML)*
+
+![Python](https://img.shields.io/badge/Python-3.x-3776AB?style=flat&logo=python&logoColor=white)
+![Matplotlib](https://img.shields.io/badge/matplotlib-bonus-11557C?style=flat)
+![School](https://img.shields.io/badge/42-Lausanne-000?style=flat&logo=42&logoColor=white)
+
+</div>
+
 ![Régression linéaire](regression_plot.png)
 
-# ft_linear_regression
+---
 
-> Un premier projet de machine learning — régression linéaire avec descente de gradient.
+## 🎯 Aperçu
+
+Prédire le **prix d'une voiture** à partir de son **kilométrage**, en implémentant la **descente de gradient** manuellement — sans `scikit-learn`, sans `numpy` pour la partie core.
+
+L'objectif n'est pas la précision, mais de comprendre **comment un modèle apprend** : initialisation, itérations, normalisation, évaluation (MAE / RMSE / R²).
+
+---
+
+## 🎬 Démo
+
+![Résultat de l'entraînement](regression_plot.png)
+
+À gauche : nuage de points + droite apprise. À droite : évolution du coût (échelle log) pendant l'entraînement.
+
+```
+Metriques de precision :
+  MAE  : 557.84 CHF  (erreur absolue moyenne)
+  RMSE : 667.57 CHF  (erreur quadratique moyenne)
+  R²   : 0.7330      (le modèle explique 73 % de la variance)
+```
 
 ---
 
@@ -207,4 +238,44 @@ Où :
 **Exemple simple** : Si tous les prix réels étaient identiques à leurs prédictions, R² = 1. Si les prédictions valaient juste la moyenne (pas de droite), R² = 0.
 
 ---
+
+## 🔌 Extensions (bonus hors-sujet)
+
+Autour du modèle, j'ai ajouté quelques briques pour transformer le projet en mini-pipeline ML :
+
+| Fichier | Rôle |
+|---------|------|
+| `scraper_autoscoot24.py` | Scrape des annonces de voitures réelles (km + prix) pour remplacer le dataset d'exemple |
+| `monitor.py` | Surveille la dérive du modèle entre deux entraînements |
+| `telegram_bot.py` | Envoie les prédictions / alertes via un bot Telegram |
+| `config.py` | Centralise les hyperparamètres (learning rate, itérations, chemins) |
+
+Documentation détaillée : [`ARCHITECTURE.md`](./ARCHITECTURE.md) · [`MONITORING_SETUP.md`](./MONITORING_SETUP.md) · [`INDEX.md`](./INDEX.md)
+
+---
+
+## 🎓 Ce que j'ai appris
+
+- **Comprendre** avant d'utiliser — écrire la descente de gradient à la main avant de toucher à `scikit-learn`
+- **Normalisation** : pourquoi elle est indispensable quand les features ont des échelles différentes (km × 10⁵, prix × 10³)
+- **Métriques** : MAE / RMSE / R² ne racontent pas la même histoire — un modèle peut avoir un bon MAE et un mauvais R²
+- **Pipeline ML** : un modèle seul ne sert à rien ; le scraping (données fraîches), le monitoring (dérive) et la diffusion (bot) sont aussi importants que la partie "apprentissage"
+- **Math → code** : traduire des formules $\Sigma$, dérivées partielles, gradients en boucles Python
+
+---
+
+## 🗺️ Roadmap
+
+- [ ] Support de **plusieurs features** (régression multiple : km + année + marque)
+- [ ] Comparaison avec `scikit-learn` pour valider l'implémentation
+- [ ] Cross-validation k-fold au lieu d'un simple split
+- [ ] Export du modèle au format ONNX / pickle
+- [ ] Interface web minimaliste (Flask) pour faire des prédictions en live
+
+---
+
+## 📜 Contexte
+
+Projet réalisé dans le cadre du cursus **[42 Lausanne](https://42lausanne.ch/)** (outer circle ML).
+Sujet officiel : *ft_linear_regression* — implémentation d'une régression linéaire sans librairie ML.
 
