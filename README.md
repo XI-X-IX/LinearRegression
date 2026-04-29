@@ -1,6 +1,6 @@
 <div align="center">
 
-# 📈 ft_linear_regression
+# ft_linear_regression
 
 ### *Mon premier projet de machine learning — régression linéaire *from scratch* (aucune librairie ML)*
 
@@ -14,7 +14,7 @@
 
 ---
 
-## 🎯 Aperçu
+## Aperçu
 
 Prédire le **prix d'une voiture** à partir de son **kilométrage**, en implémentant la **descente de gradient** manuellement — sans `scikit-learn`, sans `numpy` pour la partie core.
 
@@ -22,7 +22,7 @@ L'objectif n'est pas la précision, mais de comprendre **comment un modèle appr
 
 ---
 
-## 🎬 Démo
+## Démonstration
 
 ![Résultat de l'entraînement](regression_plot.png)
 
@@ -111,7 +111,7 @@ Exemple de sortie :
 
 ----------------------------------------
   Metriques de precision :
-    MAE  : 557.84 s  (erreur absolue moyenne)
+    MAE  : 557.84 CHF  (erreur absolue moyenne)
     RMSE : 667.57 CHF  (erreur quadratique moyenne)
     R2   : 0.7330         (1 = parfait, 0 = nul)
 ----------------------------------------
@@ -171,7 +171,7 @@ Pour chaque itération :
    theta1 = theta1 - tmp1
    ```
 
-> `m` = nombre de voitures dans le dataset  
+> `m` = nombre de voitures dans le dataset
 > `learning_rate` = taille du pas (0.1 dans ce projet)
 
 ### Pourquoi normaliser ?
@@ -203,7 +203,7 @@ Le graphique de coût est en **échelle logarithmique** car la descente est trè
 
 ### MAE (Mean Absolute Error) — Erreur Absolue Moyenne
 
-**Formule** : $\text{MAE} = \frac{1}{m} \sum_{i=1}^{m} |\text{erreur}_i|$
+**Formule** : MAE = (1/m) * somme(|erreur_i|)
 
 **Interprétation** : En moyenne, on se trompe de X CHF en valeur absolue. Si MAE = 557.84 CHF, cela veut dire qu'en moyenne notre prédiction s'écarte de 557.84 CHF du prix réel.
 
@@ -213,33 +213,33 @@ Le graphique de coût est en **échelle logarithmique** car la descente est trè
 
 ### RMSE (Root Mean Square Error) — Racine de l'Erreur Quadratique Moyenne
 
-**Formule** : $\text{RMSE} = \sqrt{\frac{1}{m} \sum_{i=1}^{m} \text{erreur}_i^2}$
+**Formule** : RMSE = racine((1/m) * somme(erreur_i²))
 
 **Interprétation** : Comme le MAE, mais **pénalise davantage les grandes erreurs** (car on élève au carré). Si un modèle fait une grosse erreur sur une seule voiture, le RMSE sera beaucoup plus important que le MAE.
 
-**Exemple** : Avec les mêmes erreurs [+200, -300, +150] : RMSE = $\sqrt{(200^2 + 300^2 + 150^2) / 3} = \sqrt{\frac{140000}{3}} \approx 216.33$ CHF. Mais avec [+200, -600, +150] : MAE = 316.67 mais RMSE = $\sqrt{\frac{440000}{3}} \approx 382.37$ → le RMSE a bien plus augmenté.
+**Exemple** : Avec les mêmes erreurs [+200, -300, +150] : RMSE = racine((200² + 300² + 150²) / 3) = racine(140000/3) ≈ 216.33 CHF. Mais avec [+200, -600, +150] : MAE = 316.67 mais RMSE = racine(440000/3) ≈ 382.37 — le RMSE a bien plus augmenté.
 
 ---
 
 ### R² (Coefficient de Détermination)
 
-**Formule** : $R^2 = 1 - \frac{SS_{\text{res}}}{SS_{\text{tot}}}$
+**Formule** : R² = 1 - (SS_res / SS_tot)
 
 Où :
-- $SS_{\text{res}} = \sum_{i=1}^{m} (\text{prix}_i - \text{prédiction}_i)^2$ (résidus au carré)
-- $SS_{\text{tot}} = \sum_{i=1}^{m} (\text{prix}_i - \overline{\text{prix}})^2$ (variance totale)
+- SS_res = somme((prix_i - prédiction_i)²) (résidus au carré)
+- SS_tot = somme((prix_i - prix_moyen)²) (variance totale)
 
 **Interprétation** : 
-- **R² = 1** → le modèle prédit parfaitement (impossible en pratique)
-- **R² = 0.73** (comme dans notre cas) → le modèle explique 73% de la variance des prix. Les 27% restants sont dus au kilométrage n'étant pas le seul facteur du prix
-- **R² = 0** → le modèle ne prédit pas mieux qu'une simple moyenne
-- **R² < 0** → le modèle est pire qu'une simple moyenne (très mauvais)
+- **R² = 1** : le modèle prédit parfaitement (impossible en pratique)
+- **R² = 0.73** (comme dans notre cas) : le modèle explique 73% de la variance des prix. Les 27% restants sont dus au kilométrage n'étant pas le seul facteur du prix
+- **R² = 0** : le modèle ne prédit pas mieux qu'une simple moyenne
+- **R² < 0** : le modèle est pire qu'une simple moyenne (très mauvais)
 
 **Exemple simple** : Si tous les prix réels étaient identiques à leurs prédictions, R² = 1. Si les prédictions valaient juste la moyenne (pas de droite), R² = 0.
 
 ---
 
-## 🔌 Extensions (bonus hors-sujet)
+## Extensions (bonus hors-sujet)
 
 Autour du modèle, j'ai ajouté quelques briques pour transformer le projet en mini-pipeline ML :
 
@@ -254,17 +254,17 @@ Documentation détaillée : [`ARCHITECTURE.md`](./ARCHITECTURE.md) · [`MONITORI
 
 ---
 
-## 🎓 Ce que j'ai appris
+## Ce que j'ai appris
 
 - **Comprendre** avant d'utiliser — écrire la descente de gradient à la main avant de toucher à `scikit-learn`
 - **Normalisation** : pourquoi elle est indispensable quand les features ont des échelles différentes (km × 10⁵, prix × 10³)
 - **Métriques** : MAE / RMSE / R² ne racontent pas la même histoire — un modèle peut avoir un bon MAE et un mauvais R²
 - **Pipeline ML** : un modèle seul ne sert à rien ; le scraping (données fraîches), le monitoring (dérive) et la diffusion (bot) sont aussi importants que la partie "apprentissage"
-- **Math → code** : traduire des formules $\Sigma$, dérivées partielles, gradients en boucles Python
+- **Math → code** : traduire des formules, dérivées partielles, gradients en boucles Python
 
 ---
 
-## 🗺️ Roadmap
+## Roadmap
 
 - [ ] Support de **plusieurs features** (régression multiple : km + année + marque)
 - [ ] Comparaison avec `scikit-learn` pour valider l'implémentation
@@ -274,8 +274,7 @@ Documentation détaillée : [`ARCHITECTURE.md`](./ARCHITECTURE.md) · [`MONITORI
 
 ---
 
-## 📜 Contexte
+## Contexte
 
 Projet réalisé dans le cadre du cursus **[42 Lausanne](https://42lausanne.ch/)** (outer circle ML).
 Sujet officiel : *ft_linear_regression* — implémentation d'une régression linéaire sans librairie ML.
-
