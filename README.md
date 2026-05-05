@@ -10,7 +10,6 @@
 
 </div>
 
-![Régression linéaire](regression_plot.png)
 
 ---
 
