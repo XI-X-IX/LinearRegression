@@ -1,110 +1,114 @@
 #!/usr/bin/env python3
 # =============================================================================
-#  predict.py  -  Programme de prediction (ft_linear_regression)
+#  predict.py  -  Prediction program (ft_linear_regression)
 # =============================================================================
 #
-#  Ce programme demande un kilometrage a l'utilisateur et retourne
-#  le prix estime pour cette voiture.
+#  This program asks the user for a mileage and shows
+#  the estimated price for this car.
 #
-#  Il utilise theta0 et theta1 sauvegardes par train.py dans thetas.json.
-#  Si thetas.json n'existe pas, les deux thetas valent 0 (prediction nulle).
+#  It uses theta0 and theta1 saved by train.py in thetas.json.
+#  If thetas.json does not exist, the two thetas are 0 (price = 0).
 #
 # =============================================================================
 
-import json   # pour lire le fichier thetas.json
-import os     # pour verifier si le fichier existe
+import json   # to read the file thetas.json
+import os     # to check if the file exists
 
 
 # -----------------------------------------------------------------------------
-# Charger theta0 et theta1
+# Load theta0 and theta1
 # -----------------------------------------------------------------------------
 
-def charger_thetas(chemin):
+def load_thetas(file_name):
     """
-    Lit thetas.json et retourne (theta0, theta1).
-    Si le fichier n'existe pas, retourne (0, 0) et affiche un avertissement.
+    Reads thetas.json and returns (theta0, theta1).
+    If the file does not exist, returns (0, 0) and shows a warning.
     """
-    if not os.path.exists(chemin):
-        print("[avertissement] '{}' introuvable.".format(chemin))
-        print("                Lancez d'abord train.py pour entrainer le modele.")
-        print("                Pour l'instant, theta0=0 et theta1=0.\n")
+    if not os.path.exists(file_name):
+        print("[warning] " + file_name + " not found.")
+        print("          Run train.py first to train the model.")
+        print("          For now, theta0 = 0 and theta1 = 0.")
+        print()
         return 0.0, 0.0
 
-    with open(chemin) as f:
-        donnees = json.load(f)
+    file = open(file_name)
+    data = json.load(file)
+    file.close()
 
-    theta0 = float(donnees["theta0"])
-    theta1 = float(donnees["theta1"])
+    theta0 = data["theta0"]
+    theta1 = data["theta1"]
     return theta0, theta1
 
 
 # -----------------------------------------------------------------------------
-# Hypothese : formule de prediction
+# Hypothesis : the prediction formula
 # -----------------------------------------------------------------------------
 #
-# C'est la meme formule que dans train.py :
-#     prix_estime = theta0 + theta1 * km
+# This is the same formula as in train.py:
+#     estimated_price = theta0 + theta1 * km
 
-def estimer_prix(km, theta0, theta1):
-    return theta0 + (theta1 * km)
+def estimate_price(km, theta0, theta1):
+    return theta0 + theta1 * km
 
 
 # -----------------------------------------------------------------------------
-# Demander le kilometrage a l'utilisateur
+# Ask the user for the mileage
 # -----------------------------------------------------------------------------
 
-def demander_kilometrage():
+def ask_mileage():
     """
-    Boucle jusqu'a ce que l'utilisateur entre un nombre valide et positif.
-    Retourne le kilometrage sous forme de float.
+    Asks again and again until the user gives a good positive number.
+    Returns the mileage as a float.
     """
     while True:
-        saisie = input("Entrez le kilometrage (km) : ").strip()
+        text = input("Enter the mileage (km) : ")
 
-        # Verifie que c'est bien un nombre
+        # Check that it is a number
         try:
-            km = float(saisie)
+            km = float(text)
         except ValueError:
-            print("  [erreur] Veuillez entrer un nombre valide (ex: 50000).\n")
+            print("  [error] Please enter a number (ex: 50000).")
+            print()
             continue
 
-        # Verifie que c'est positif
+        # Check that it is positive
         if km < 0:
-            print("  [erreur] Le kilometrage ne peut pas etre negatif.\n")
+            print("  [error] The mileage can not be negative.")
+            print()
             continue
 
         return km
 
 
 # -----------------------------------------------------------------------------
-# PROGRAMME PRINCIPAL
+# MAIN PROGRAM
 # -----------------------------------------------------------------------------
 
 def main():
-    print("=" * 50)
+    print("==================================================")
     print("   ft_linear_regression  -  Prediction")
-    print("=" * 50)
+    print("==================================================")
     print()
 
-    # 1. Charger les thetas entraines
-    theta0, theta1 = charger_thetas("thetas.json")
+    # 1. Load the trained thetas
+    theta0, theta1 = load_thetas("thetas.json")
 
-    # 2. Demander le kilometrage
-    km = demander_kilometrage()
+    # 2. Ask for the mileage
+    km = ask_mileage()
 
-    # 3. Calculer le prix estime
-    prix = estimer_prix(km, theta0, theta1)
+    # 3. Compute the estimated price
+    price = estimate_price(km, theta0, theta1)
 
-    # Les prix ne peuvent pas etre negatifs
-    if prix < 0:
-        prix = 0.0
+    # A price can not be negative
+    if price < 0:
+        price = 0.0
 
-    # 4. Afficher le resultat
+    # 4. Show the result
     print()
-    print("  Kilometrage entre  : {:,.0f} km".format(km))
-    print("  Prix estime        : {:,.2f} CHF".format(prix))
+    print("  Mileage         :", km, "km")
+    print("  Estimated price :", round(price, 2), "CHF")
 
 
-# Point d'entree Python
+# Python starts here
 if __name__ == "__main__":
     main()

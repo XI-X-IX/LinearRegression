@@ -28,10 +28,10 @@ L'objectif n'est pas la précision, mais de comprendre **comment un modèle appr
 À gauche : nuage de points + droite apprise. À droite : évolution du coût (échelle log) pendant l'entraînement.
 
 ```
-Metriques de precision :
-  MAE  : 557.84 CHF  (erreur absolue moyenne)
-  RMSE : 667.57 CHF  (erreur quadratique moyenne)
-  R²   : 0.7330      (le modèle explique 73 % de la variance)
+Precision :
+  MAE  : 557.84 CHF  (mean absolute error)
+  RMSE : 667.57 CHF  (root mean squared error)
+  R2   : 0.733       (le modèle explique 73 % de la variance)
 ```
 
 ---
@@ -96,23 +96,23 @@ Exemple de sortie :
 
 ```
 ==================================================
-   ft_linear_regression  -  Entrainement
+   ft_linear_regression  -  Training
 ==================================================
 
-[1/5] Lecture du dataset...
-      24 voitures chargees.
-[2/5] Normalisation des donnees...
-[3/5] Descente de gradient (10000 iterations, lr=0.1)...
-[4/5] Denormalisation des thetas...
-      theta0 = 8499.5996
-      theta1 = -0.021449
-[5/5] Thetas sauvegardes dans thetas.json
+[1/5] Reading the data...
+      Number of cars : 24
+[2/5] Normalizing the data...
+[3/5] Gradient descent (10000 iterations, learning rate = 0.1)...
+[4/5] Denormalizing the thetas...
+      theta0 = 8499.599649933214
+      theta1 = -0.02144896359170229
+[5/5] Thetas saved in thetas.json
 
 ----------------------------------------
-  Metriques de precision :
-    MAE  : 557.84 CHF  (erreur absolue moyenne)
-    RMSE : 667.57 CHF  (erreur quadratique moyenne)
-    R2   : 0.7330         (1 = parfait, 0 = nul)
+  Precision :
+    MAE  : 557.84 CHF  (mean absolute error)
+    RMSE : 667.57 CHF  (root mean squared error)
+    R2   : 0.733       (1 = perfect, 0 = bad)
 ----------------------------------------
 ```
 
@@ -127,10 +127,10 @@ python3 predict.py
    ft_linear_regression  -  Prediction
 ==================================================
 
-Entrez le kilometrage (km) : 80000
+Enter the mileage (km) : 80000
 
-  Kilometrage entre  : 80,000 km
-  Prix estime        : 6,783.68 CHF
+  Mileage         : 80000.0 km
+  Estimated price : 6783.68 CHF
 ```
 
 > **Important** : lancez `train.py` avant `predict.py`. Sans `thetas.json`, les deux thetas valent 0 et la prédiction sera toujours 0.
@@ -144,7 +144,7 @@ Entrez le kilometrage (km) : 80000
 On a 24 paires `(km, prix)`. On veut trouver `theta0` et `theta1` tels que :
 
 ```
-estimer_prix(km) = theta0 + theta1 * km
+estimate_price(km) = theta0 + theta1 * km
 ```
 
 soit le plus proche possible des vrais prix.
@@ -155,7 +155,7 @@ Pour chaque itération :
 
 1. **Calculer l'erreur** pour chaque voiture :
    ```
-   erreur[i] = estimer_prix(km[i]) - prix[i]
+   erreur[i] = estimate_price(km[i]) - prix[i]
    ```
 
 2. **Calculer les ajustements** (formules du sujet) :
