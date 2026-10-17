@@ -45,6 +45,10 @@ def read_data(file_name):
         kms.append(float(parts[0]))
         prices.append(float(parts[1]))
 
+    if len(kms) == 0:
+        print("Error : the file is empty !")
+        exit(1)
+
     return kms, prices
 
 
