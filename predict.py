@@ -19,22 +19,22 @@ import os     # pour verifier si le fichier existe
 # Charger theta0 et theta1
 # -----------------------------------------------------------------------------
 
-def charger_thetas(chemin):
+def load_thetas(path):
     """
     Lit thetas.json et retourne (theta0, theta1).
     Si le fichier n'existe pas, retourne (0, 0) et affiche un avertissement.
     """
-    if not os.path.exists(chemin):
-        print("[avertissement] '{}' introuvable.".format(chemin))
-        print("                Lancez d'abord train.py pour entrainer le modele.")
-        print("                Pour l'instant, theta0=0 et theta1=0.\n")
+    if not os.path.exists(path):
+        print("[warning] '{}' not found.".format(path))
+        print("          Run train.py first to train the model.")
+        print("          For now, theta0=0 and theta1=0.\n")
         return 0.0, 0.0
 
-    with open(chemin) as f:
-        donnees = json.load(f)
+    with open(path) as f:
+        data = json.load(f)
 
-    theta0 = float(donnees["theta0"])
-    theta1 = float(donnees["theta1"])
+    theta0 = float(data["theta0"])
+    theta1 = float(data["theta1"])
     return theta0, theta1
 
 
@@ -43,9 +43,9 @@ def charger_thetas(chemin):
 # -----------------------------------------------------------------------------
 #
 # C'est la meme formule que dans train.py :
-#     prix_estime = theta0 + theta1 * km
+#     estimated_price = theta0 + theta1 * km
 
-def estimer_prix(km, theta0, theta1):
+def estimate_price(km, theta0, theta1):
     return theta0 + (theta1 * km)
 
 
@@ -53,24 +53,24 @@ def estimer_prix(km, theta0, theta1):
 # Demander le kilometrage a l'utilisateur
 # -----------------------------------------------------------------------------
 
-def demander_kilometrage():
+def ask_mileage():
     """
     Boucle jusqu'a ce que l'utilisateur entre un nombre valide et positif.
     Retourne le kilometrage sous forme de float.
     """
     while True:
-        saisie = input("Entrez le kilometrage (km) : ").strip()
+        user_input = input("Enter the mileage (km): ").strip()
 
         # Verifie que c'est bien un nombre
         try:
-            km = float(saisie)
+            km = float(user_input)
         except ValueError:
-            print("  [erreur] Veuillez entrer un nombre valide (ex: 50000).\n")
+            print("  [error] Please enter a valid number (e.g. 50000).\n")
             continue
 
         # Verifie que c'est positif
         if km < 0:
-            print("  [erreur] Le kilometrage ne peut pas etre negatif.\n")
+            print("  [error] Mileage cannot be negative.\n")
             continue
 
         return km
@@ -87,22 +87,22 @@ def main():
     print()
 
     # 1. Charger les thetas entraines
-    theta0, theta1 = charger_thetas("thetas.json")
+    theta0, theta1 = load_thetas("thetas.json")
 
     # 2. Demander le kilometrage
-    km = demander_kilometrage()
+    km = ask_mileage()
 
     # 3. Calculer le prix estime
-    prix = estimer_prix(km, theta0, theta1)
+    price = estimate_price(km, theta0, theta1)
 
     # Les prix ne peuvent pas etre negatifs
-    if prix < 0:
-        prix = 0.0
+    if price < 0:
+        price = 0.0
 
     # 4. Afficher le resultat
     print()
-    print("  Kilometrage entre  : {:,.0f} km".format(km))
-    print("  Prix estime        : {:,.2f} CHF".format(prix))
+    print("  Mileage entered : {:,.0f} km".format(km))
+    print("  Estimated price : {:,.2f} CHF".format(price))
 
 
 # Point d'entree Python
