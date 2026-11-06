@@ -7,6 +7,7 @@ Prédire le prix d'une voiture à partir de son kilométrage, avec une régressi
 - `train.py` : apprend `theta0` et `theta1` à partir de `data.csv`, puis les sauvegarde dans `thetas.txt`
 - `predict.py` : demande un kilométrage et affiche le prix estimé
 - `precision.py` (bonus) : calcule de combien le modèle se trompe en moyenne
+- `graphs.py` (bonus) : affiche les voitures (points bleus) et la droite de régression (en rouge)
 - `data.csv` : le dataset (24 voitures : kilométrage et prix)
 
 ## Utilisation
@@ -15,6 +16,13 @@ Prédire le prix d'une voiture à partir de son kilométrage, avec une régressi
 python3 train.py
 python3 predict.py
 python3 precision.py   # bonus
+python3 graphs.py      # bonus
+```
+
+`graphs.py` est le seul fichier qui utilise une librairie : `matplotlib`, juste pour dessiner. Si elle n'est pas installée :
+
+```bash
+pip install --user matplotlib
 ```
 
 Si on lance `predict.py` avant `train.py`, les deux thetas valent 0, donc le prix estimé est 0.
