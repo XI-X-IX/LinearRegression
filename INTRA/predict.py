@@ -64,7 +64,7 @@ def ask_mileage():
         except ValueError:
             print("Error: please enter a number.")
             continue
-        if mileage < 0 or mileage != mileage or mileage == float("inf"):
+        if mileage < 0 or mileage != mileage or mileage == float("inf") or mileage > 500000:
             print("Error: please enter a positive number.")
             continue
         break
@@ -78,4 +78,3 @@ if __name__ == "__main__":
 
     # 3. Calculer et afficher le prix
     print("Estimated price:", estimate_price(mileage, theta0, theta1))
-    

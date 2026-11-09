@@ -39,22 +39,21 @@ def read_data(filename):
 
     mileages = []
     prices = []
-    for number, line in enumerate(lines[1:], start=2):
-        line = line.strip()
-        if line == "":
+    for line in lines[1:]:
+        if line.strip() == "":
             continue
         parts = line.split(",")
         if len(parts) != 2:
-            error_exit(f"line {number}: expected 'km,price'.")
+            error_exit("expected 'km,price'.")
         try:
             mileage = float(parts[0])
             price = float(parts[1])
         except ValueError:
-            error_exit(f"line {number}: values must be numbers.")
-        if not math.isfinite(mileage) or not math.isfinite(price):
-            error_exit(f"line {number}: values must be finite.")
+            error_exit("values must be numbers.")
+        if not (math.isfinite(mileage) and math.isfinite(price)):
+            error_exit("values must be finite.")
         if mileage < 0 or price < 0:
-            error_exit(f"line {number}: values must be positive.")
+            error_exit("values must be positive.")
         mileages.append(mileage)
         prices.append(price)
 
@@ -88,8 +87,8 @@ def gradient_descent(mileages, prices, learning_rate, iterations):
         sum1 = 0.0
         for i in range(m):
             error = estimate_price(mileages[i], theta0, theta1) - prices[i]
-            sum0 += error
-            sum1 += error * mileages[i]
+            sum0 = sum0 + error
+            sum1 = sum1 + error * mileages[i]
 
         tmp_theta0 = learning_rate * sum0 / m
         tmp_theta1 = learning_rate * sum1 / m

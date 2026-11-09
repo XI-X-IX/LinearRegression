@@ -16,7 +16,8 @@ def r_squared(mileages, prices, theta0, theta1):
         ss_res += (prices[i] - prediction) ** 2
         ss_tot += (prices[i] - mean_price) ** 2
     if ss_tot == 0:
-        print("Error: all prices are the same, R2 is undefined.", file=sys.stderr)
+        print("Error: all prices are the same, R2 is undefined.",
+              file=sys.stderr)
         sys.exit(1)
     return 1 - ss_res / ss_tot
 

@@ -19,10 +19,10 @@ def main():
     mileages, prices = read_data(DATA_FILE)
     theta0, theta1 = load_thetas()
 
-    # 1. Les donnees : un point par voiture
+    # un point par voiture
     plt.scatter(mileages, prices, color="blue", label="Data")
 
-    # 2. La droite : 2 points suffisent (km min et km max)
+    # 2 points suffisent (km min et km max)
     x = [min(mileages), max(mileages)]
     y = [estimate_price(x[0], theta0, theta1),
          estimate_price(x[1], theta0, theta1)]
